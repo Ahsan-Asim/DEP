@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="del_user.css">
+  <title>Document</title>
+</head>
+<body>
+
+
+   <!--The below code is of the header section-->
+   <div id="header">
+    <div class="container">
+      <nav>
+        <h5 class="ahsan">ahsan.</h5>
+         <ul id="sidemenu">
+              <li><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#pro-skills">Portfolio</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <i class="fa-solid fa-circle-xmark" onclick="closemenu()"></i>
+         </ul>
+         <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+      </nav>
+      <div class="header-text">
+        <p>Website Internship Task#01</p>
+        <h1>Hi, Welcome to<span>CRUD</span><br> API Website!</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <!--form-->
+  <div class="form-container">
+    <h2>Delete Tailor</h2>
+    <form action="/delete_tailor" method="POST" id="deleteTailorForm">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+            <div class="error-message" id="deleteEmailError"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
+
+
+  
+
+
+
+
+  <script>
+    var sidemenu=document.getElementById("sidemenu");
+  
+  
+    function openmenu(){
+      sidemenu.style.right="0";
+    }
+  
+    function closemenu(){
+      sidemenu.style.right="-200px";
+    }
+  </script>
+  
+  
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="add_user.css">
+  <title>Document</title>
+</head>
+<body>
+
+
+   <!--The below code is of the header section-->
+   <div id="header">
+    <div class="container">
+      <nav>
+        <h5 class="ahsan">ahsan.</h5>
+         <ul id="sidemenu">
+              <li><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#pro-skills">Portfolio</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <i class="fa-solid fa-circle-xmark" onclick="closemenu()"></i>
+         </ul>
+         <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+      </nav>
+      <div class="header-text">
+        <p>Website Internship Task#01</p>
+        <h1>Hi, Welcome to<span>CRUD</span><br> API Website!</h1>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!--form code-->
+
+  <div class="login-container">
+    <h2>Sign Up</h2>
+    <form action="/sign_up" method="POST" class="login-form" id="signUpForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <div class="error-message" id="nameError"></div>
+
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" required>
+        <div class="error-message" id="ageError"></div>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <div class="error-message" id="emailError"></div>
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" required>
+        <div class="error-message" id="phoneError"></div>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        <div class="error-message" id="genderError"></div>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <div class="error-message" id="passwordError"></div>
+
+        <input type="submit" value="Sign Up">
+    </form>
+</div>
+
+
+
+
+
+
+  <script>
+    var sidemenu=document.getElementById("sidemenu");
+  
+  
+    function openmenu(){
+      sidemenu.style.right="0";
+    }
+  
+    function closemenu(){
+      sidemenu.style.right="-200px";
+    }
+  </script>
+  <script>
+
+document.getElementById('signUpForm').addEventListener('submit', function(event) {
+    let isValid = true;
+
+    // Name validation
+    const name = document.getElementById('name').value;
+    const nameError = document.getElementById('nameError');
+    if (name.length < 5) {
+        nameError.textContent = 'Name must be at least 5 characters long.';
+        isValid = false;
+    } else if (!/^[a-zA-Z\s]+$/.test(name)) {
+        nameError.textContent = 'Name must contain only letters and spaces.';
+        isValid = false;
+    } else {
+        nameError.textContent = '';
+    }
+
+    // Age validation
+    const age = document.getElementById('age').value;
+    const ageError = document.getElementById('ageError');
+    if (!/^\d+$/.test(age)) {
+        ageError.textContent = 'Age must be a number.';
+        isValid = false;
+    }
+    if (age<10||age>60) {
+        ageError.textContent = 'Age must be in limits 10-60.';
+        isValid = false;
+    }
+    
+    else {
+        ageError.textContent = '';
+    }
+
+    // Email validation
+    const email = document.getElementById('email').value;
+    const emailError = document.getElementById('emailError');
+    if (!/^\S+@gmail\.com$/.test(email)) {
+        emailError.textContent = 'Email must be in the format: user@gmail.com.';
+        isValid = false;
+    } else {
+        emailError.textContent = '';
+    }
+
+    // Phone validation
+    const phone = document.getElementById('phoneNumber').value;
+    const phoneError = document.getElementById('phoneError');
+    if (!/^\d+$/.test(phone)) {
+        phoneError.textContent = 'Phone number must contain only digits.';
+        isValid = false;
+    } else {
+        phoneError.textContent = '';
+    }
+
+    // Password validation
+    const password = document.getElementById('password').value;
+    const passwordError = document.getElementById('passwordError');
+    if (password.length < 8 || !/[a-zA-Z]/.test(password) || !/\d/.test(password)) {
+        passwordError.textContent = 'Password must be at least 8 characters long and contain both letters and numbers.';
+        isValid = false;
+    } else {
+        passwordError.textContent = '';
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+
+
+  </script>
+  
+</body>
+</html>

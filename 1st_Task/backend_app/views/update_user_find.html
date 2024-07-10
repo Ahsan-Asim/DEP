@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="update_user_find.css">
+  <title>Document</title>
+</head>
+<body>
+
+
+   <!--The below code is of the header section-->
+   <div id="header">
+    <div class="container">
+      <nav>
+        <h5 class="ahsan">ahsan.</h5>
+         <ul id="sidemenu">
+              <li><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#pro-skills">Portfolio</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <i class="fa-solid fa-circle-xmark" onclick="closemenu()"></i>
+         </ul>
+         <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+      </nav>
+      <div class="header-text">
+        <p>Website Internship Task#01</p>
+        <h1>Hi, Welcome to<span>CRUD</span><br> API Website!</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-container">
+    <h2>Update Tailor</h2>
+    <form action="/find_tailor" method="POST" id="updateTailorForm">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="updateEmail" name="email" required>
+            <div class="error-message" id="updateEmailError"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
+
+
+
+  
+
+
+
+
+  <script>
+    var sidemenu=document.getElementById("sidemenu");
+  
+  
+    function openmenu(){
+      sidemenu.style.right="0";
+    }
+  
+    function closemenu(){
+      sidemenu.style.right="-200px";
+    }
+  </script>
+
+  <script>
+
+document.getElementById('updateTailorForm').addEventListener('submit', function(event) {
+  let isValid = true;
+
+  // Email validation for update tailor form
+  const email = document.getElementById('updateEmail').value;
+  const emailError = document.getElementById('updateEmailError');
+  if (!/^\S+@gmail\.com$/.test(email)) {
+      emailError.textContent = 'Email must be in the format: user@gmail.com.';
+      isValid = false;
+  } else {
+      emailError.textContent = '';
+  }
+
+  if (!isValid) {
+      event.preventDefault();
+  }
+});
+
+</script>
+
+  
+  
+</body>
+</html>
