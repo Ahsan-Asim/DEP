@@ -5,20 +5,16 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const app = express();
 const {
-    handleLogin,
     handleSignUp,
     handleIndexFile,
     handleSign_Up,
-    handleForgotPassword,
-    handleForgotPasswordSubmit, // New controller function
-    handleemailverification,
-    generateVerificationCode,
-    sendVerificationEmail,
-    handleadd_tailor,
-    handleFindTailorByEmail,
-    handleUpdateTailor,
-    handleDeleteTailorbyEmail,
     handleGetUserByEmail,
+    handleFindUserByEmail,
+    handleUpdateUser,
+    handleDeleteUserbyEmail,
+    handleGetAllUsers,
+
+
 } = require('../controllers/user');
 
 //middleware for parsingw the body
@@ -31,23 +27,21 @@ router.use(bodyParser.urlencoded({
 // Routes
 router.get("/", handleIndexFile);
 router.get("/sign_up", handleSignUp);
-router.get("/forgot", handleForgotPassword);
-router.get("/emailverification", handleemailverification);
 
-router.post("/log-in", handleLogin);
+
 router.post("/sign_up", handleSign_Up);
-router.post("/emailverification", handleemailverification);
-router.post("/forgot", handleForgotPasswordSubmit);
+
 
 
 
 // New route for handling forgot password form submission
-router.post("/add_tailor",handleadd_tailor);
-router.post("/find_tailor",handleFindTailorByEmail)
-router.post("/update_tailor",handleUpdateTailor)
-router.post("/delete_tailor",handleDeleteTailorbyEmail)
+router.post("/find_tailor",handleFindUserByEmail)
+router.post("/update_tailor",handleUpdateUser)
+router.post("/all_users",handleDeleteUserbyEmail)
+router.post("/delete_tailor",handleDeleteUserbyEmail)
 
-router.get("/getUserByEmail",handleGetUserByEmail)
+
+router.post("/allusers",handleGetAllUsers)
 
 
 
