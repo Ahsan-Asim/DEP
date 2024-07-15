@@ -51,7 +51,7 @@ async function handleIndexFile(req, res) {
 }
 
 async function handleSignUp(req, res) {
-  res.sendFile(path.join(__dirname, "views", "sign_up.html"));
+  res.render('sign_up');
 }
 
 

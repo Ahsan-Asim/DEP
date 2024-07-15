@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+     /*css for the image grid*/
+     .grid-container {
+            display: flex;
+            flex-wrap: nowrap; /* Prevent wrapping to next line */
+            overflow-x: auto; /* Enable horizontal scrolling */
+            gap: 20px; /* Space between grid items */
+            padding: 20px;
+            max-height: 100vh; /* Maximum height for scrollable area */
+            justify-content: flex-start; /* Align items to the start of the container */
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+            -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+        }
+
+        .grid-container::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+        }
+
+        .card {
+            flex: 0 0 calc(25% - 15px); /* Adjust width to fit exactly four cards with gap */
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            background-color: #fff; /* Card background color */
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Lift card on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+        }
+
+        .card img {
+            width: 100%; /* Ensure image fills the card */
+            height: auto;
+            object-fit: cover; /* Maintain aspect ratio and cover the card */
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .card-info {
+            padding: 10px;
+            text-align: left;
+            background-color:rgb(255, 213, 159) /* Blue background color */;
+            color: #fff; /* White text color */
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .card-info h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            text-align: center; /* Center-align the name */
+            color: black;
+        }
+
+        .card p {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+                        color: black;
+
+        }
+
+
+
+/* Expanded details container */
+.details-container {
+            display: none;
+            position: fixed;
+            top: 20;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .details-content {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .details-content img {
+            width: 150px; /* Set smaller width for the image */
+            height: 150px; /* Maintain square aspect ratio */
+            border-radius: 50%; /* Rounded shape */
+            object-fit: cover; /* Cover the image within the rounded frame */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: block;
+            margin: 0 auto; /* Center the image */
+        }
+
+        .details-content h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            text-align: center; /* Center-align the name */
+        }
+
+        .details-content p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            text-align: center; /* Center-align the details */
+        }
+
+        .closebtn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: black;
+        }
+
+        .closebtn:hover {
+            color: #fff; /* Change color on hover */
+        }
+
+  </style>
+  <title>Document</title>
+</head>
+<body>
+
+  <!---->
+
+  <div class="grid-container">
+    <% if (tailors.length > 0) { %>
+        <% tailors.forEach(tailor => { %>
+            <div class="card" onclick="showDetails('<%= tailor.title %>', '<%= tailor.description %>','<%= tailor.imageUrl %>')">
+                <img src="/uploads/<%= tailor.imageUrl || 'path/to/default-image.jpg' %>" alt="<%= tailor.name %>">
+                <div class="card-info">
+                    <h2><%= tailor.title %></h2>
+                    <p><strong>Description:</strong> <%= tailor.description %></p>
+                </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <div>
+            <p>No Blogs exist</p>
+        </div>
+    <% } %>
+</div>
+
+<!-- Expanded details container -->
+<div class="details-container" id="detailsContainer">
+  <div class="details-content">
+      <span class="closebtn" onclick="hideDetails()">&times;</span>
+      <img id="expandedImg">
+      <h2 id="expandedName"></h2>
+      <p><strong>Description:</strong> <span id="expandedPhone"></span></p>
+  </div>
+</div>
+
+<div class="container">
+  <button class="btn btn-primary" onclick="openBlogForm()">Create a Blog</button>
+  <button class="btn btn-primary" onclick="openDeleteForm()">Delete a Blog</button>
+</div>
+
+<script>
+  function openBlogForm() {
+      window.location.href = 'blog.html';
+  }
+
+  function openDeleteForm() {
+      window.location.href = 'deleteBlogbyAdmin.html';
+  }
+
+  function showDetails(title, description, imageUrl) {
+      const expandedImg = document.getElementById('expandedImg');
+      const expandedName = document.getElementById('expandedName');
+      const expandedDescription = document.getElementById('expandedPhone');
+
+      expandedImg.src = `/uploads/${imageUrl}`; // Adjust as per your image naming convention
+      expandedName.textContent = title;
+      expandedDescription.textContent = description;
+
+      // Show the details container
+      const detailsContainer = document.getElementById('detailsContainer');
+      detailsContainer.style.display = 'block';
+  }
+
+  function hideDetails() {
+      const detailsContainer = document.getElementById('detailsContainer');
+      detailsContainer.style.display = 'none';
+  }
+</script>
+
+
+  
+</body>
+</html>
