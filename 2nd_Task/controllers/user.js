@@ -270,6 +270,76 @@ async function handleDeleteBlogbyAdmin(req, res) {
 
 
 
+async function handleFindBlogByEmail(req, res) {
+  try {
+    // Find tailor by email
+    const foundBlog = await Blog.findOne({
+      title:req.body.title,
+       createdby: req.body.email 
+      });
+
+    // If tailor not found, send response
+    if (!foundBlog) {
+      return res.status(404).send("Blog not found.");
+    }
+
+    // Redirect to update.html with tailor details as query parameters
+    return res.redirect(
+      `/updateBlog.html?title=${foundBlog.title}&description=${foundBlog.description}&email=${foundBlog.createdby}`
+    );
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).send("Internal Server Error");
+  }
+}
+
+
+async function handleUpdateBlog(req, res) {
+  try {
+    // Extract data from the request body
+    const { title, description, email } = req.body;
+
+    // Find the tailor by email
+    const foundTailor = await Blog.findOne({ createdby:email });
+
+    // If tailor not found, send response
+    if (!foundTailor) {
+      return res.status(404).send("Blog not found.");
+    }
+
+    // Update tailor details
+    foundTailor.title = title;
+    foundTailor.description = description;
+    foundTailor.email = email;
+
+    // Save the updated tailor
+    await foundTailor.save();
+
+
+    const rol = await User.find({email:req.body.email});
+
+      
+
+
+    const tailors = await Blog.find({ createdby:req.body.email });
+
+
+  // Redirect to admin.html with tailor details as query parameters
+  if(rol.role=="ADMIN")
+  {
+    res.render('adminPanel', { tailors });
+  }
+  else{
+    res.render('userPanel', { tailors });
+  }
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).send("Internal Server Error");
+  }
+}
+
+
+
 
 
 
@@ -286,4 +356,6 @@ module.exports = {
   handleBlogCreate,
   handleBlog,
   handleDeleteBlogbyAdmin,
+  handleFindBlogByEmail,
+  handleUpdateBlog,
 };

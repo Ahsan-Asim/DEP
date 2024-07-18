@@ -45,7 +45,7 @@
 <div class="container">
   <button class="btn btn-2" onclick="openBlogForm()">Create a Blog</button>
   <button class="btn btn-2" onclick="openDeleteForm()">Delete a Blog</button>
-  <button class="btn btn-2" onclick="openBlogForm()">Update a Blog</button>
+  <button class="btn btn-2" onclick="openUpdateForm()">Update a Blog</button>
 
 </div>
 
@@ -56,6 +56,10 @@
 
   function openDeleteForm() {
       window.location.href = 'deleteBlogbyAdmin.html';
+  }
+
+  function openUpdateForm() {
+      window.location.href = 'updateBlogsByEmail.html';
   }
 
   function showDetails(title, description, imageUrl) {

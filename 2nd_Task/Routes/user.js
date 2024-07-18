@@ -15,6 +15,8 @@ const {
     handleBlogCreate,
     handleBlog,
     handleDeleteBlogbyAdmin,
+    handleFindBlogByEmail,
+    handleUpdateBlog,
 } = require('../controllers/user');
 
 
@@ -52,6 +54,10 @@ router.get("/blog", handleBlogCreate);
 router.post("/log-in", handleLogin);
 router.post('/sign_up', handleSign_Up); // Ensure upload is used correctly here
 router.post("/submit-blog",upload.single('image'), handleBlog);
+router.post("/find_blog", handleFindBlogByEmail);
+router.post("/update_blog", handleUpdateBlog);
+
+
 
 
 // Routes for tailor management
