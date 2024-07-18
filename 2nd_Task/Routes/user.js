@@ -4,27 +4,12 @@ const multer = require("multer");
 const path = require("path");
 const router = express.Router();
 
-
-//
-
-
-const app = express();
-
-
 const {
     handleLogin,
     handleSignUp,
     handleIndexFile,
     handleSign_Up,
-    handleForgotPassword,
-    handleForgotPasswordSubmit,
-    handleemailverification,
-    generateVerificationCode,
-    sendVerificationEmail,
-    handleadd_tailor,
-    handleFindTailorByEmail,
     handleUpdateTailor,
-    handleGetUserByEmail,
     handleAdminPanel,
     handleUserPanel,
     handleBlogCreate,
@@ -58,8 +43,6 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // Routes
 router.get("/", handleIndexFile);
 router.get("/sign_up", handleSignUp);
-router.get("/forgot", handleForgotPassword);
-router.get("/emailverification", handleemailverification);
 router.get("/adminPanel", handleAdminPanel);
 router.get("/userPanel", handleUserPanel);
 router.get("/blog", handleBlogCreate);
@@ -68,16 +51,11 @@ router.get("/blog", handleBlogCreate);
 
 router.post("/log-in", handleLogin);
 router.post('/sign_up', handleSign_Up); // Ensure upload is used correctly here
-router.post("/emailverification", handleemailverification);
-router.post("/forgot", handleForgotPasswordSubmit);
 router.post("/submit-blog",upload.single('image'), handleBlog);
 
 
 // Routes for tailor management
-router.post("/add_tailor", handleadd_tailor);
-router.post("/find_tailor", handleFindTailorByEmail);
 router.post("/update_tailor", handleUpdateTailor);
 router.post("/delete_blog_by_admin", handleDeleteBlogbyAdmin);
-router.get("/getUserByEmail", handleGetUserByEmail);
 
 module.exports = router;

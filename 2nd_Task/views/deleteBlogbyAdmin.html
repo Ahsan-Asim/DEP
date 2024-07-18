@@ -8,11 +8,13 @@
 <body>
 
   <div class="form-container">
-    <h2>Delete Tailor</h2>
+    <h2>Delete Blog</h2>
     <form action="/delete_blog_by_admin" method="POST">
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" class="form-control" id="title" name="title" required>
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
